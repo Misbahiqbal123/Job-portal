@@ -1,0 +1,63 @@
+<?php
+include_once "session.php";
+include_once "header.php";
+?>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
+<?php
+include_once "sidebar.php";
+?>
+</div>
+<div class="col-md-10">
+<nav class="row navbar navbar-expand-lg navbar-dark" style="background-color: #FFD862;">
+  <a class="navbar-brand" href="home.php">Job Seeker</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="card mt-5">
+<div class="card-body">
+<?php
+$id=$_REQUEST['id'];
+$sql="select job_seeker.id, name, contact, email, city, address, profile_img, cnic, dob, gender, resume, about from job_seeker_profile INNER JOIN job_seeker on job_seeker.id=job_seeker_profile.job_seeker_id where job_seeker_id='$id'";
+$result=mysqli_query($con,$sql);
+if(mysqli_num_rows($result)>0){
+$row=mysqli_fetch_array($result);
+?>
+<img src="../image/<?php echo $row['profile_img'];?>" height="200">
+<h2><?php echo $row['name'];?></h2>
+<p class="line-height">CNIC: <?php echo $row['cnic'];?></p>
+<p class="line-height">Contact: <?php echo $row['contact'];?></p>
+<p class="line-height">Email: <?php echo $row['email'];?></p>
+<p class="line-height">City: <?php echo $row['city'];?></p>
+<p class="line-height">Address: <?php echo $row['address'];?></p>
+<p class="line-height">Gender: <?php echo $row['gender'];?></p>
+<p class="line-height">About:</p>
+<p class="w-50 text-justify"><?php echo $row['about'];?></p>
+<a href="../resume/<?php echo $row['resume'];?>" download>Download</a> ||
+<a href="export_cv.php?id=<?php echo $row['id'];?>">Export CV</a>
+<?php
+}
+else{
+	echo "<p>Profile information not found</p>";
+}
+?>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</body>
+</html>
