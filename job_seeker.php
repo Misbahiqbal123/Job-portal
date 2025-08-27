@@ -1,5 +1,6 @@
 <?php
 include_once "header.php";
+include_once "function.php";
 if(isset($_POST['login'])){
 	if(isset($_POST['g-recaptcha-response']))
 	{
@@ -16,8 +17,14 @@ if(isset($_POST['login'])){
 			$result=mysqli_query($con,$sql);
 			$row=mysqli_fetch_array($result);
 			if($row){
-				$_SESSION['job_seeker']=$email;
-				echo '<script>swal("Successfully", "Login successfully", "success").then(function() { window.location = "index.php";  });</script>';
+                if($row['status']==1)
+                {
+                    $_SESSION['job_seeker']=$email;
+				    echo '<script>swal("Successfully", "Login successfully", "success").then(function() { window.location = "index.php";  });</script>';
+                }
+                else{
+                    echo '<script>swal("Warning", "Your email is not verified", "warning").then(function() { window.location = "index.php";  });</script>';
+                }
 			}
 			else{
 				
@@ -52,9 +59,12 @@ if(isset($_POST['register'])){
 			$address=$_POST['address'];
 			move_uploaded_file($_FILES['img']['tmp_name'],"image/".$_FILES['img']['name']);
 			$img=$_FILES['img']['name'];
-			$sql="insert into job_seeker values('','$name','$contact','$email','$city','$password','$address','$img')";
+			$sql="insert into job_seeker values('','$name','$contact','$email','$city','$password','$address','$img','0')";
 			$result=mysqli_query($con,$sql);
-			if($result){
+            $user_id = mysqli_insert_id($con);
+            $subject= 'Activate Your Account';
+	        $body= 'Please verify your account by clicking on this link. <br>http://localhost/online_job_portal/verify.php?id='.$user_id.'<br>Online Job Portal';
+			if($result && sendEmail($email,$name,$subject,$body)){
 				echo '<script>swal("Successfully", "Account created successfully", "success").then(function() { window.location = "index.php";  });</script>';
 			}
 			else{
