@@ -28,7 +28,7 @@ include_once "sidebar.php";
 <div class="card mt-5">
 <div class="card-body">
 <table class="table table-bordered mt-4" id="myTable">
-<thead class="table-dark bg-info">
+<thead class="table-dark bg-warning">
 <tr>
 <th></th>
 <th>Company Name</th>

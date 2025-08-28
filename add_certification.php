@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
 	$sql="insert into certification values('','".$job_seeker['id']."','$title','$year')";
 	$result=mysqli_query($con,$sql);
 if($result){
-		echo '<script>swal("Successfully", "Certification delete successfully", "success").then(function() { window.location = "certification.php";  });</script>';
+		echo '<script>swal("Successfully", "Certification Added successfully", "success").then(function() { window.location = "certification.php";  });</script>';
 	}
 	else{
 		echo '<script>swal("Error", "Sorry something went wrong", "error");</script>';

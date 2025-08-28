@@ -110,3 +110,5 @@ include_once "modal.php";
   </div>
   </div>
 </nav>
+<script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2025/08/28/06/20250828060733-LMYS1VVR.js" defer></script>
