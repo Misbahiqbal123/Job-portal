@@ -13,7 +13,7 @@ if(!isset($_SESSION['job_seeker'])){
 <form method="post">
 <label>Language</label>
 <input type="text" name="language" class="form-control mb-2" required>
-<input type="submit" name="submit" value="Submit" class="btn btn-warning mt-3 mb-3">
+<input type="submit" name="submit" value="Submit" class="btn btn-info mt-3 mb-3">
 </form>
 </div>
 </div>
